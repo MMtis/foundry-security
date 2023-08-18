@@ -33,7 +33,7 @@ Please install the following:
 ## Quickstart
 
 ```sh
-git clone https://github.com/PatrickAlphaC/foundry-security
+git clone https://github.com/maroutis/foundry-security
 cd foundry-security
 forge install
 ```
