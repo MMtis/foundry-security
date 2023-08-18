@@ -13,6 +13,6 @@ fail_on_revert = false
 
 [profile.default.model_checker]
 contracts = {'./src/CaughtWithSymbolic.sol' = ['CaughtWithSymbolic']}
-engine = 'chc'
+engine = 'chc' # use chc model checker
 timeout = 1000
-targets = ['assert']
+targets = ['assert'] # searches for the assert keyword

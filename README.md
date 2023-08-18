@@ -1,15 +1,15 @@
-# About
-
-*[⭐️ (7:21:12) | Lesson 15 | Security & Auditing](https://www.youtube.com/watch?v=wUjYK5gwNZs&t=26472s)*
+# Security and Auditing
 
 Learning how to use security tooling to find bugs!
+
+\***_You will find detailed steps of how to install the correct version of z3 on ubuntu for symbolic testing._**
 
 - [About](#about)
 - [Getting Started](#getting-started)
   - [Requirements](#requirements)
   - [Quickstart](#quickstart)
 - [Let's use tools to find bugs!](#lets-use-tools-to-find-bugs)
-  - [Manul Review](#manul-review)
+  - [Manual Review](#manul-review)
   - [Test Suite](#test-suite)
   - [Static Analysis](#static-analysis)
     - [Prerequisites](#prerequisites)
@@ -33,8 +33,8 @@ Please install the following:
 ## Quickstart
 
 ```sh
-git clone https://github.com/PatrickAlphaC/denver-security
-cd denver-security
+git clone https://github.com/PatrickAlphaC/foundry-security
+cd foundry-security
 forge install
 ```
 
@@ -46,7 +46,7 @@ forge test
 
 # Let's use tools to find bugs!
 
-## Manul Review
+## Manual Review
 
 In `CaughtWithManualReview.sol` we see `doMath` should add 2 instead of one! We were only able to know this because we read the documentation associated with the function.
 
@@ -124,3 +124,48 @@ In `foundry.toml` uncomment the `profile.default.model_checker` section.
 Then, just run: `forge build`
 
 Our solidity modeled our `functionOneSymbolic` to be a math equation, and then, solved for the math!
+
+Issues might arise if you don't have z3 installed. To install z3, do the following :
+
+```sh
+pip install z3-solver==4.11.1.0
+
+look for libz3.so.4.11 :
+
+find / -name 'libz3.so*' 2>/dev/null
+```
+
+If z3 is not found then do the following (if found skip this step):
+
+```sh
+git clone https://github.com/Z3Prover/z3.git
+git checkout z3-4.11.2
+python scripts/mk_make.py
+cd build
+make
+sudo make install
+```
+
+Then do the following :
+
+```sh
+nano ~/.bashrc
+add line : export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/home/YourUsername/.local/lib/python3.10/site-packages/z3/lib"
+source ~/.bashrc
+
+```
+
+Finally :
+
+```
+forge build --force
+```
+
+# Thank you!
+
+If you appreciated this, feel free to follow me or donate!
+
+ETH/Arbitrum/Optimism/Polygon/etc Address: 0xC24D24973C3E2f0025bA5C1e5B3CCa6Dc1b3C7b1
+
+[![Maroutis Twitter](https://img.shields.io/badge/Twitter-1D9BF0?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/Maroutis)
+[![Maroutis YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UCaBWVCcRHYCNDN1aMwJ5toQ)
